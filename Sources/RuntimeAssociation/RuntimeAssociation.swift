@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import ObjectiveC
 
 public protocol RuntimeAssociation: AnyObject {
@@ -18,3 +20,5 @@ extension RuntimeAssociation {
 }
 
 extension NSObject: RuntimeAssociation {}
+
+#endif

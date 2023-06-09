@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 @resultBuilder
 public enum NavigationTransitionBuilder {
 	#if compiler(>=5.7)
@@ -176,3 +178,4 @@ private enum _Either<Left, Right> {
 
 extension _Either: Equatable where Left: Equatable, Right: Equatable {}
 extension _Either: Hashable where Left: Hashable, Right: Hashable {}
+#endif

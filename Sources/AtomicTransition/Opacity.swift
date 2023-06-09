@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import class UIKit.UIView
 
 /// A transition from transparent to opaque on insertion, and from opaque to transparent on removal.
@@ -22,3 +24,4 @@ public struct Opacity: MirrorableAtomicTransition {
 }
 
 extension Opacity: Hashable {}
+#endif

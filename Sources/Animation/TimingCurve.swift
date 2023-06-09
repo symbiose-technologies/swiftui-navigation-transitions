@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import UIKit
 
 extension Animation {
@@ -26,3 +28,4 @@ extension Animation {
 		.timingCurve(c0x, c0y, c1x, c1y, duration: defaultDuration)
 	}
 }
+#endif

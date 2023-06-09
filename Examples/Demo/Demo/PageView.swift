@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import SwiftUI
 
 struct PageView<Content: View, Link: View, Destination: View>: View {
@@ -117,3 +119,4 @@ extension View {
 		modifierClosure(self)
 	}
 }
+#endif

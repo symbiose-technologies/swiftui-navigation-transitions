@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import Animation
 import UIKit
 
@@ -48,3 +50,4 @@ extension AnyNavigationTransition {
 		return copy
 	}
 }
+#endif

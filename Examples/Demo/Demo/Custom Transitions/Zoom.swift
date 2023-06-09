@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import NavigationTransition
 import SwiftUI
 
@@ -18,3 +20,4 @@ struct Zoom: NavigationTransition {
 		}
 	}
 }
+#endif

@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import AtomicTransition
 
 /// Used to define a transition that executes only on push.
@@ -53,3 +55,5 @@ public struct OnPop<Transition: AtomicTransition>: NavigationTransition {
 
 extension OnPop: Equatable where Transition: Equatable {}
 extension OnPop: Hashable where Transition: Hashable {}
+
+#endif

@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 @_spi(package) import Animator
 import UIKit
 
@@ -41,3 +43,4 @@ public struct SendToBack: AtomicTransition {
 }
 
 extension SendToBack: Hashable {}
+#endif

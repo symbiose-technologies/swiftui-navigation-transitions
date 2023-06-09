@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 extension AnyNavigationTransition {
 	/// Combines this transition with another, returning a new transition that is the result of both transitions
 	/// being applied.
@@ -56,3 +58,4 @@ public struct Combined<TransitionA: NavigationTransition, TransitionB: Navigatio
 
 extension Combined: Equatable where TransitionA: Equatable, TransitionB: Equatable {}
 extension Combined: Hashable where TransitionA: Hashable, TransitionB: Hashable {}
+#endif

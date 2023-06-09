@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import UIKit
 
 extension Animation {
@@ -18,3 +20,4 @@ extension Animation {
 		)
 	}
 }
+#endif

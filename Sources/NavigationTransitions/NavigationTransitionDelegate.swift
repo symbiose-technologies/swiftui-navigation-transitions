@@ -1,3 +1,6 @@
+#if canImport(UIKit)
+
+
 @_spi(package) import Animation
 @_spi(package) import Animator
 @_spi(package) import NavigationTransition
@@ -164,3 +167,4 @@ final class NavigationTransitionAnimatorProvider: NSObject, UIViewControllerAnim
 		return (fromView, toView)
 	}
 }
+#endif

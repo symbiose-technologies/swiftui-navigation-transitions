@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import UIKit
 
 /// An animation-transient view.
@@ -58,3 +60,4 @@ public class AnimatorTransientView {
 		Properties.default.assignToUIView(uiView, force: true)
 	}
 }
+#endif

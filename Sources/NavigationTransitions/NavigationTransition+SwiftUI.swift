@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 @_implementationOnly import Introspect
 import SwiftUI
 
@@ -146,3 +148,5 @@ extension View {
 		self.navigationTransition(transition, interactivity: interactivity)
 	}
 }
+
+#endif

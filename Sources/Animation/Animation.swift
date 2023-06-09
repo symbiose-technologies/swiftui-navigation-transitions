@@ -1,3 +1,4 @@
+#if canImport(UIKit)
 import UIKit
 
 public struct Animation {
@@ -23,3 +24,4 @@ extension Animation {
 		return copy
 	}
 }
+#endif

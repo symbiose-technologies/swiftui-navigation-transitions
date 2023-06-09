@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import Foundation
 import NavigationTransitions
 
@@ -235,3 +237,5 @@ final class AppState: ObservableObject {
 
 	@Published var isPresentingSettings: Bool = false
 }
+
+#endif

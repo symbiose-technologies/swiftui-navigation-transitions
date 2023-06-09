@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 @_spi(package) import NavigationTransition
 @_implementationOnly import RuntimeAssociation
 @_implementationOnly import RuntimeSwizzling
@@ -295,3 +297,4 @@ final class NavigationGestureRecognizerDelegate: NSObject, UIGestureRecognizerDe
 		return isNotOnRoot
 	}
 }
+#endif

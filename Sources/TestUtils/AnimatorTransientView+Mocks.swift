@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 @_spi(package) @testable import Animator
 import UIKit
 import XCTestDynamicOverlay
@@ -63,3 +65,5 @@ extension AnimatorTransientView.Properties {
 		zPosition: 0
 	)
 }
+
+#endif
