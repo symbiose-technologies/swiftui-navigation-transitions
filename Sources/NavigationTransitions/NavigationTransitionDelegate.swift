@@ -55,10 +55,10 @@ final class NavigationTransitionDelegate: NSObject, UINavigationControllerDelega
 
 final class NavigationTransitionAnimatorProvider: NSObject, UIViewControllerAnimatedTransitioning {
 	let transition: AnyNavigationTransition
-	let animation: Animation
+	let animation: NavAnimation
 	let operation: NavigationTransitionOperation
 
-	init(transition: AnyNavigationTransition, animation: Animation, operation: NavigationTransitionOperation) {
+	init(transition: AnyNavigationTransition, animation: NavAnimation, operation: NavigationTransitionOperation) {
 		self.transition = transition
 		self.animation = animation
 		self.operation = operation

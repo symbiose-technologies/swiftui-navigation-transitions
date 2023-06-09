@@ -49,7 +49,7 @@ public struct ZoomExp: NavigationTransition {
     public var body: some NavigationTransition {
         OnPush {
             OnInsertion {
-                Scale(0.5)
+                Scale(0.3)
                 ZPosition(1)
                 Opacity()
             }
@@ -66,7 +66,7 @@ public struct ZoomExp: NavigationTransition {
                 Opacity()
             }
             OnRemoval {
-                Scale(0.5)
+                Scale(0.3)
                 ZPosition(1)
                 Opacity()
             }

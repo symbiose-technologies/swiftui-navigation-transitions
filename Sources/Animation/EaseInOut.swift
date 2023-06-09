@@ -1,6 +1,6 @@
 #if canImport(UIKit)
 
-extension Animation {
+extension NavAnimation {
 	public static func easeInOut(duration: Double) -> Self {
 		.init(duration: duration, curve: .easeInOut)
 	}

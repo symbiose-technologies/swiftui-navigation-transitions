@@ -2,7 +2,7 @@
 
 import UIKit
 
-extension Animation {
+extension NavAnimation {
 	public static func timingCurve(
 		_ c0x: Double,
 		_ c0y: Double,

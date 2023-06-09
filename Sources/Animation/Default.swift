@@ -1,7 +1,7 @@
 #if canImport(UIKit)
 
 
-extension Animation {
+extension NavAnimation {
 	public static var `default`: Self {
 		.init(duration: defaultDuration, curve: .easeInOut)
 	}
