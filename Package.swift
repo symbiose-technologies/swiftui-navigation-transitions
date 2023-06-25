@@ -16,14 +16,14 @@ let package = Package(
 // MARK: Dependencies
 
 package.dependencies = [
-	.package(url: "https://github.com/siteline/SwiftUI-Introspect", from: "0.1.4"),
-	.package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.6.0"), // dev
-	.package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", from: "0.5.0"), // dev
+    .package(url: "https://github.com/siteline/swiftui-introspect", from: "0.6.0"),
+    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "0.10.3"), // dev
+    .package(url: "https://github.com/pointfreeco/xctest-dynamic-overlay", from: "0.8.5"), // dev
 ]
 
-let Introspect: Target.Dependency = .product(
-	name: "Introspect",
-	package: "SwiftUI-Introspect"
+let SwiftUIIntrospect: Target.Dependency = .product(
+    name: "SwiftUIIntrospect",
+    package: "swiftui-introspect"
 )
 
 let CustomDump: Target.Dependency = .product(
@@ -58,7 +58,7 @@ package.targets += [
 	.target(name: "NavigationTransition", dependencies: [
 		"Animation",
 		"AtomicTransition",
-		Introspect,
+        SwiftUIIntrospect,
 	]),
 
 	.target(name: "NavigationTransitions", dependencies: [
