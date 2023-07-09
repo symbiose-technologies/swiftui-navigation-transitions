@@ -11,12 +11,7 @@
 <img width="320" src="https://user-images.githubusercontent.com/2538074/201550282-64ce0f8e-8f99-4fe2-baf8-583e35c0518a.gif">
 </p>
 
-**NavigationTransitions** is a library that integrates seamlessly with SwiftUI's **Navigation** views, allowing complete customization over **push and pop transitions**!
-
-The library is fully compatible with:
-
-- **`NavigationView`** (iOS 13, 14, 15)
-- **`NavigationStack`** (iOS 16)
+**NavigationTransitions** is a library that integrates seamlessly with SwiftUI's `NavigationView` and `NavigationStack`, allowing complete customization over **push and pop transitions**!
 
 ## Overview
 
@@ -34,7 +29,7 @@ NavigationView {
 .navigationTransition(.slide)
 ```
 
-#### iOS 16
+#### iOS 16+
 
 ```swift
 NavigationStack {
@@ -125,13 +120,16 @@ This even works to override its behavior while maintaining the **default system 
 The documentation for releases and `main` are available here:
 
 - [`main`](https://swiftpackageindex.com/davdroman/swiftui-navigation-transitions/main/documentation/navigationtransitions)
-- [0.9.2](https://swiftpackageindex.com/davdroman/swiftui-navigation-transitions/0.9.2/documentation/navigationtransitions)
+- [0.10.1](https://swiftpackageindex.com/davdroman/swiftui-navigation-transitions/0.10.1/documentation/navigationtransitions)
 
 <details>
 <summary>
 Other versions
 </summary>
 
+- [0.10.0](https://swiftpackageindex.com/davdroman/swiftui-navigation-transitions/0.10.0/documentation/navigationtransitions)
+- [0.9.3](https://swiftpackageindex.com/davdroman/swiftui-navigation-transitions/0.9.3/documentation/navigationtransitions)
+- [0.9.2](https://swiftpackageindex.com/davdroman/swiftui-navigation-transitions/0.9.2/documentation/navigationtransitions)
 - [0.9.1](https://swiftpackageindex.com/davdroman/swiftui-navigation-transitions/0.9.1/documentation/navigationtransitions)
 - [0.9.0](https://swiftpackageindex.com/davdroman/swiftui-navigation-transitions/0.9.0/documentation/navigationtransitions)
 - [0.8.1](https://swiftpackageindex.com/davdroman/swiftui-navigation-transitions/0.8.1/documentation/navigationtransitions)

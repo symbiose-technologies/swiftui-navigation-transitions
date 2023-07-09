@@ -1,8 +1,8 @@
 #if canImport(UIKit)
 
 @_spi(package) import NavigationTransition
-@_implementationOnly import RuntimeAssociation
-@_implementationOnly import RuntimeSwizzling
+import RuntimeAssociation
+import RuntimeSwizzling
 import UIKit
 
 extension AnyNavigationTransition {
@@ -223,7 +223,7 @@ extension UINavigationController {
 	@available(tvOS, unavailable)
 	private func exclusivelyEnableGestureRecognizer(_ gestureRecognizer: UIPanGestureRecognizer?) {
 		for recognizer in [defaultEdgePanRecognizer!, defaultPanRecognizer!, edgePanRecognizer!, panRecognizer!] {
-			if let gestureRecognizer = gestureRecognizer, recognizer === gestureRecognizer {
+			if let gestureRecognizer, recognizer === gestureRecognizer {
 				recognizer.isEnabled = true
 			} else {
 				recognizer.isEnabled = false
@@ -275,7 +275,7 @@ extension UIGestureRecognizer {
 			value(forKey: #function)
 		}
 		set {
-			if let newValue = newValue {
+			if let newValue {
 				setValue(newValue, forKey: #function)
 			} else {
 				setValue(NSMutableArray(), forKey: #function)
@@ -292,6 +292,12 @@ final class NavigationGestureRecognizerDelegate: NSObject, UIGestureRecognizerDe
 		self.navigationController = controller
 	}
 
+	// TODO: swizzle instead
+	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+		let isNotOnRoot = navigationController.viewControllers.count > 1
+		let noModalIsPresented = navigationController.presentedViewController == nil // TODO: check if this check is still needed after iOS 17 public release
+		return isNotOnRoot && noModalIsPresented
+	}
 //	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 //		let isNotOnRoot = navigationController.viewControllers.count > 1
 //		return isNotOnRoot
