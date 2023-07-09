@@ -1,6 +1,7 @@
 #if canImport(UIKit)
 
-@_implementationOnly import SwiftUIIntrospect
+//@_implementationOnly import SwiftUIIntrospect
+import SwiftUIIntrospect
 import SwiftUI
 
 // MARK: iOS 16
@@ -26,26 +27,26 @@ public struct NavigationSplitViewColumns: OptionSet {
 	}
 }
 
-extension View {
-	@available(iOS, introduced: 16, deprecated, renamed: "navigationTransition")
-	@ViewBuilder
-	public func navigationSplitViewTransition(
-		_ transition: AnyNavigationTransition,
-		forColumns columns: NavigationSplitViewColumns,
-		interactivity: AnyNavigationTransition.Interactivity = .default
-	) -> some View {
-		self.navigationTransition(transition, interactivity: interactivity)
-	}
-
-	@available(iOS, introduced: 16, deprecated, renamed: "navigationTransition")
-	@ViewBuilder
-	public func navigationStackTransition(
-		_ transition: AnyNavigationTransition,
-		interactivity: AnyNavigationTransition.Interactivity = .default
-	) -> some View {
-		self.navigationTransition(transition, interactivity: interactivity)
-	}
-}
+//extension View {
+//	@available(iOS, introduced: 16, deprecated, renamed: "navigationTransition")
+//	@ViewBuilder
+//	public func navigationSplitViewTransition(
+//		_ transition: AnyNavigationTransition,
+//		forColumns columns: NavigationSplitViewColumns,
+//		interactivity: AnyNavigationTransition.Interactivity = .default
+//	) -> some View {
+//		self.navigationTransition(transition, interactivity: interactivity)
+//	}
+//
+//	@available(iOS, introduced: 16, deprecated, renamed: "navigationTransition")
+//	@ViewBuilder
+//	public func navigationStackTransition(
+//		_ transition: AnyNavigationTransition,
+//		interactivity: AnyNavigationTransition.Interactivity = .default
+//	) -> some View {
+//		self.navigationTransition(transition, interactivity: interactivity)
+//	}
+//}
 
 extension View {
 	@ViewBuilder
@@ -82,25 +83,25 @@ public struct NavigationViewColumns: OptionSet {
 	}
 }
 
-extension View {
-	@available(iOS, introduced: 13, deprecated, renamed: "navigationTransition")
-	@ViewBuilder
-	public func navigationViewColumnTransition(
-		_ transition: AnyNavigationTransition,
-		forColumns columns: NavigationViewColumns,
-		interactivity: AnyNavigationTransition.Interactivity = .default
-	) -> some View {
-		self.navigationTransition(transition, interactivity: interactivity)
-	}
-
-	@available(iOS, introduced: 13, deprecated, renamed: "navigationTransition")
-	@ViewBuilder
-	public func navigationViewStackTransition(
-		_ transition: AnyNavigationTransition,
-		interactivity: AnyNavigationTransition.Interactivity = .default
-	) -> some View {
-		self.navigationTransition(transition, interactivity: interactivity)
-	}
-}
+//extension View {
+//	@available(iOS, introduced: 13, deprecated, renamed: "navigationTransition")
+//	@ViewBuilder
+//	public func navigationViewColumnTransition(
+//		_ transition: AnyNavigationTransition,
+//		forColumns columns: NavigationViewColumns,
+//		interactivity: AnyNavigationTransition.Interactivity = .default
+//	) -> some View {
+//		self.navigationTransition(transition, interactivity: interactivity)
+//	}
+//
+//	@available(iOS, introduced: 13, deprecated, renamed: "navigationTransition")
+//	@ViewBuilder
+//	public func navigationViewStackTransition(
+//		_ transition: AnyNavigationTransition,
+//		interactivity: AnyNavigationTransition.Interactivity = .default
+//	) -> some View {
+//		self.navigationTransition(transition, interactivity: interactivity)
+//	}
+//}
 
 #endif
