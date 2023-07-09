@@ -292,20 +292,11 @@ final class NavigationGestureRecognizerDelegate: NSObject, UIGestureRecognizerDe
 		self.navigationController = controller
 	}
 
-	// TODO: swizzle instead
-	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-		let isNotOnRoot = navigationController.viewControllers.count > 1
-		let noModalIsPresented = navigationController.presentedViewController == nil // TODO: check if this check is still needed after iOS 17 public release
-		return isNotOnRoot && noModalIsPresented
-	}
-//	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-//		let isNotOnRoot = navigationController.viewControllers.count > 1
-//		return isNotOnRoot
-//	}
     
     var gestureBlocked: Bool {
         NavigationGestureGlobalState.shared.navigationGestureBlocked
     }
+    
     
     // TODO: swizzle instead
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
