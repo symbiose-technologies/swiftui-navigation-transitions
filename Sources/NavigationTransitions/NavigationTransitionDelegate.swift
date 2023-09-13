@@ -1,3 +1,6 @@
+#if canImport(UIKit)
+
+
 @_spi(package) import Animation
 @_spi(package) import Animator
 @_spi(package) import NavigationTransition
@@ -52,10 +55,10 @@ final class NavigationTransitionDelegate: NSObject, UINavigationControllerDelega
 
 final class NavigationTransitionAnimatorProvider: NSObject, UIViewControllerAnimatedTransitioning {
 	let transition: AnyNavigationTransition
-	let animation: Animation
+	let animation: NavAnimation
 	let operation: NavigationTransitionOperation
 
-	init(transition: AnyNavigationTransition, animation: Animation, operation: NavigationTransitionOperation) {
+	init(transition: AnyNavigationTransition, animation: NavAnimation, operation: NavigationTransitionOperation) {
 		self.transition = transition
 		self.animation = animation
 		self.operation = operation
@@ -164,3 +167,4 @@ final class NavigationTransitionAnimatorProvider: NSObject, UIViewControllerAnim
 		return (fromView, toView)
 	}
 }
+#endif

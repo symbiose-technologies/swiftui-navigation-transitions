@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import UIKit
 import XCTestDynamicOverlay
 
@@ -83,3 +85,5 @@ public final class MockedUIKitContext: UnimplementedUIKitContext {
 		_containerView
 	}
 }
+
+#endif

@@ -1,3 +1,4 @@
+#if canImport(UIKit)
 import ObjectiveC
 
 public var swizzleLogs = false
@@ -47,3 +48,4 @@ private struct SwizzlingHistory {
 }
 
 private var swizzlingHistory = SwizzlingHistory()
+#endif

@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import AtomicTransition
 import SwiftUI
 
@@ -63,3 +65,4 @@ public struct Slide: NavigationTransition {
 }
 
 extension Slide: Hashable {}
+#endif

@@ -1,6 +1,8 @@
+#if canImport(UIKit)
+
 import UIKit
 
-extension Animation {
+extension NavAnimation {
 	public static func interpolatingSpring(
 		mass: Double = 1.0,
 		stiffness: Double,
@@ -18,3 +20,4 @@ extension Animation {
 		)
 	}
 }
+#endif

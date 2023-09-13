@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 @_spi(package) import Animator
 import SwiftUI
 
@@ -47,3 +49,4 @@ extension Rotate3D: Hashable {
 		hasher.combine(axis.z)
 	}
 }
+#endif

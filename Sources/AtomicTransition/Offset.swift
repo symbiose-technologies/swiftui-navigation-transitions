@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import UIKit
 
 /// A transition that translates the view from offset to zero on insertion, and from zero to offset on removal.
@@ -39,3 +41,4 @@ public struct Offset: MirrorableAtomicTransition {
 }
 
 extension Offset: Hashable {}
+#endif

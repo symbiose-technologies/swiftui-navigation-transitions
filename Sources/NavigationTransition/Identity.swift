@@ -1,3 +1,6 @@
+#if canImport(UIKit)
+
+
 // For internal use only.
 struct Identity: NavigationTransition {
 	init() {}
@@ -13,3 +16,4 @@ struct Identity: NavigationTransition {
 }
 
 extension Identity: Hashable {}
+#endif

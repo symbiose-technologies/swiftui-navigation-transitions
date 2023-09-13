@@ -1,3 +1,6 @@
+#if canImport(UIKit)
+
+
 import SwiftUI
 
 struct PageOne: View {
@@ -175,3 +178,4 @@ struct Code<Content: StringProtocol>: View {
 		#endif
 	}
 }
+#endif

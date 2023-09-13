@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import ObjectiveC
 
 public enum RuntimeAssociationPolicy {
@@ -27,3 +29,4 @@ extension objc_AssociationPolicy {
 		}
 	}
 }
+#endif

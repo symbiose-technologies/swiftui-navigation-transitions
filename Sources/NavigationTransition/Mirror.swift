@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import AtomicTransition
 
 /// Used to define a transition that executes on push, and executes the mirrored version of said transition on pop.
@@ -41,3 +43,4 @@ public struct MirrorPop<Transition: MirrorableAtomicTransition>: NavigationTrans
 
 extension MirrorPop: Equatable where Transition: Equatable {}
 extension MirrorPop: Hashable where Transition: Hashable {}
+#endif

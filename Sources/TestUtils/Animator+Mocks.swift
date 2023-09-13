@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import Animator
 import UIKit
 import XCTestDynamicOverlay
@@ -13,3 +15,5 @@ public final class UnimplementedAnimator: Animator {
 		XCTFail("\(Self.self).\(#function) is unimplemented")
 	}
 }
+
+#endif

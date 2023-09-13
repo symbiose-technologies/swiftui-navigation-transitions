@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 @resultBuilder
 public enum AtomicTransitionBuilder {
 	public static func buildBlock() -> Identity {
@@ -193,3 +195,4 @@ private enum _Either<Left, Right> {
 
 extension _Either: Equatable where Left: Equatable, Right: Equatable {}
 extension _Either: Hashable where Left: Hashable, Right: Hashable {}
+#endif
