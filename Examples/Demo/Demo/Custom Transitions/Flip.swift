@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import NavigationTransition
 import SwiftUI
 
@@ -20,3 +22,4 @@ struct Flip: NavigationTransition {
 		}
 	}
 }
+#endif

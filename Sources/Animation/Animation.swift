@@ -1,6 +1,7 @@
+#if canImport(UIKit)
 import UIKit
 
-public struct Animation {
+public struct NavAnimation {
 	static var defaultDuration: Double { 0.35 }
 
 	@_spi(package) public var duration: Double
@@ -16,10 +17,11 @@ public struct Animation {
 	}
 }
 
-extension Animation {
+extension NavAnimation {
 	public func speed(_ speed: Double) -> Self {
 		var copy = self
 		copy.duration /= speed
 		return copy
 	}
 }
+#endif

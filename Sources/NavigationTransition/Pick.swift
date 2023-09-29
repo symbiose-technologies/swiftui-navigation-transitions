@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 /// Used to isolate the push portion of a full `NavigationTransition` and execute it on push, ignoring the pop portion.
 public struct PickPush<Transition: NavigationTransition>: NavigationTransition {
 	private let transition: Transition
@@ -49,3 +51,4 @@ public struct PickPop<Transition: NavigationTransition>: NavigationTransition {
 
 extension PickPop: Equatable where Transition: Equatable {}
 extension PickPop: Hashable where Transition: Hashable {}
+#endif

@@ -1,3 +1,6 @@
+#if canImport(UIKit)
+
+
 /// A transition that executes only on insertion, but executes only on removal when mirrored.
 public struct MirrorInsertion<Transition: AtomicTransition>: AtomicTransition {
 	private let transition: Transition
@@ -59,3 +62,4 @@ extension MirrorRemoval: MirrorableAtomicTransition where Transition: Mirrorable
 
 extension MirrorRemoval: Equatable where Transition: Equatable {}
 extension MirrorRemoval: Hashable where Transition: Hashable {}
+#endif

@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import class UIKit.UIView
 
 /// A transition that returns the input view, unmodified, as the output view.
@@ -15,3 +17,4 @@ public struct Identity: AtomicTransition, MirrorableAtomicTransition {
 }
 
 extension Identity: Hashable {}
+#endif

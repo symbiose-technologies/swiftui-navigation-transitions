@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import class Animator.AnimatorTransientView
 import class UIKit.UIView
 
@@ -48,3 +50,4 @@ public protocol MirrorableAtomicTransition: AtomicTransition {
 	/// > ```
 	func mirrored() -> Mirrored
 }
+#endif

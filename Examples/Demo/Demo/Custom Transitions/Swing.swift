@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import NavigationTransition
 import SwiftUI
 
@@ -27,3 +29,4 @@ struct Swing: NavigationTransition {
 		}
 	}
 }
+#endif

@@ -1,3 +1,6 @@
+#if canImport(UIKit)
+
+
 import SwiftUI
 
 /// Typealias for `Animator`. Useful for disambiguation.
@@ -49,3 +52,5 @@ extension Animator where Self: UIViewImplicitlyAnimating {
 }
 
 extension UIViewPropertyAnimator: Animator {}
+
+#endif

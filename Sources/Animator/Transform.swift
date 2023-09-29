@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import UIKit
 
 @dynamicMemberLookup
@@ -100,3 +102,4 @@ extension CATransform3D {
 		CATransform3DConcat(self, other)
 	}
 }
+#endif

@@ -1,6 +1,8 @@
+#if canImport(UIKit)
+
 import UIKit
 
-extension Animation {
+extension NavAnimation {
 	public static func timingCurve(
 		_ c0x: Double,
 		_ c0y: Double,
@@ -26,3 +28,4 @@ extension Animation {
 		.timingCurve(c0x, c0y, c1x, c1y, duration: defaultDuration)
 	}
 }
+#endif

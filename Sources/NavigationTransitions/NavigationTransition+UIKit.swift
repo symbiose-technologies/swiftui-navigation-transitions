@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 @_spi(package) import NavigationTransition
 import RuntimeAssociation
 import RuntimeSwizzling
@@ -292,10 +294,44 @@ final class NavigationGestureRecognizerDelegate: NSObject, UIGestureRecognizerDe
 		self.navigationController = controller
 	}
 
-	// TODO: swizzle instead
-	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-		let isNotOnRoot = navigationController.viewControllers.count > 1
-		let noModalIsPresented = navigationController.presentedViewController == nil // TODO: check if this check is still needed after iOS 17 public release
-		return isNotOnRoot && noModalIsPresented
-	}
+    
+    var gestureBlocked: Bool {
+        NavigationGestureGlobalState.shared.navigationGestureBlocked
+    }
+    
+    
+    // TODO: swizzle instead
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard !gestureBlocked else {
+            print("gesture BLOCKED!")
+            return false
+        }
+        
+        
+        let isNotOnRoot = navigationController.viewControllers.count > 1
+        let noModalIsPresented = navigationController.presentedViewController == nil // TODO: check if this check is still needed after iOS 17 public release
+        return isNotOnRoot && noModalIsPresented
+    }
+}
+
+
+#endif
+
+
+public final class NavigationGestureGlobalState {
+    
+    public static var shared: NavigationGestureGlobalState = NavigationGestureGlobalState()
+    
+    public var navigationGestureBlocked: Bool = false
+    
+    
+    public init() {
+        
+    }
+    
+    public func setNavigationGestureBlocked(_ blocked: Bool) {
+        print("setNavigationGestureBlocked: \(blocked)")
+        navigationGestureBlocked = blocked
+    }
+    
 }

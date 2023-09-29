@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 extension AnyNavigationTransition {
 	/// The system-default transition.
 	///
@@ -24,3 +26,4 @@ extension AnyNavigationTransition {
 		// NO-OP
 	}
 }
+#endif

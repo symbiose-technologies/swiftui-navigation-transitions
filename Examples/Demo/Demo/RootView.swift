@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import NavigationTransitions
 import SwiftUI
 
@@ -39,3 +41,4 @@ struct RootView: View {
 		appState.interactivity()
 	}
 }
+#endif

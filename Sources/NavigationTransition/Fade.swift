@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import AtomicTransition
 
 extension AnyNavigationTransition {
@@ -46,3 +48,4 @@ public struct Fade: NavigationTransition {
 }
 
 extension Fade: Hashable {}
+#endif
