@@ -74,4 +74,45 @@ public struct ZoomExp: NavigationTransition {
         
     }
 }
+
+
+
+public extension AnyNavigationTransition {
+    
+    static var zoomOut: Self {
+        .init(ZoomOut())
+    }
+}
+
+
+public struct ZoomOut: NavigationTransition {
+    public var body: some NavigationTransition {
+        OnPush {
+            OnInsertion {
+                Scale(1.5)
+                ZPosition(1)
+                Opacity()
+            }
+            OnRemoval {
+                Scale(0.3)
+                ZPosition(1)
+                Opacity()
+            }
+        }
+        OnPop {
+            OnInsertion {
+                Scale(0.3)
+                ZPosition(1)
+                Opacity()
+            }
+            OnRemoval {
+                Scale(1.5)
+                ZPosition(1)
+                Opacity()
+            }
+        }
+        
+    }
+}
+
 #endif
