@@ -129,13 +129,33 @@ final class NavigationTransitionAnimatorProvider: NSObject, UIViewControllerAnim
 			toUIView.isUserInteractionEnabled = true
 
 			// iOS 16 workaround to nudge views into becoming responsive after transition
-			if transitionContext.transitionWasCancelled {
-				fromUIView.removeFromSuperview()
-				container.addSubview(fromUIView)
-			} else {
-				toUIView.removeFromSuperview()
-				container.addSubview(toUIView)
-			}
+            
+            /*
+             TODO:
+             try to fixswiftuihittesting like so:
+             
+             //from transmission uiviewcontroller extension
+             
+             func fixSwiftUIHitTesting() {
+                 if let view = viewIfLoaded {
+                     // This fixes SwiftUI's gesture handling that can get messed up when applying
+                     // transforms and/or frame changes during an interactive presentation. This resets
+                     // SwiftUI's geometry in a clean way, fixing hit testing.
+                     let frame = view.frame
+                     view.frame = .zero
+                     view.frame = frame
+                 }
+             }
+             
+             */
+            
+//			if transitionContext.transitionWasCancelled {
+//				fromUIView.removeFromSuperview()
+//				container.addSubview(fromUIView)
+//			} else {
+//				toUIView.removeFromSuperview()
+//				container.addSubview(toUIView)
+//			}
 		}
 
 		return animator

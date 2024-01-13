@@ -342,6 +342,27 @@ final class NavigationGestureRecognizerDelegate: NSObject, UIGestureRecognizerDe
     }
     
     
+    let rightEdgeIgnoreRegion: CGFloat = 0.15 // 10% of the right edge should be ignored
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        //if it is on the right edge of the screen, with a certain amount of padding, then skip the gesture
+        
+        
+        let location = touch.location(in: gestureRecognizer.view)
+        let width = gestureRecognizer.view?.bounds.width ?? 0
+        let max_XVal = width - (width * rightEdgeIgnoreRegion)
+        print("location: \(location) max_XVal: \(max_XVal) gestureRecognizer.view.width: \(width)")
+        if location.x > max_XVal {
+            return false
+        }
+        
+        
+        return true
+    }
+    
+    
+    
     // TODO: swizzle instead
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard !gestureBlocked else {
@@ -354,6 +375,9 @@ final class NavigationGestureRecognizerDelegate: NSObject, UIGestureRecognizerDe
         let noModalIsPresented = navigationController.presentedViewController == nil // TODO: check if this check is still needed after iOS 17 public release
         return isNotOnRoot && noModalIsPresented
     }
+    
+    
+    
 }
 
 
