@@ -8,21 +8,26 @@ import UIKit
 
 final class NavigationTransitionDelegate: NSObject, UINavigationControllerDelegate {
 	var transition: AnyNavigationTransition
+    private weak var addlDelegate: UINavigationControllerDelegate?
 	private weak var baseDelegate: UINavigationControllerDelegate?
 	var interactionController: UIPercentDrivenInteractiveTransition?
 
-	init(transition: AnyNavigationTransition, baseDelegate: UINavigationControllerDelegate?) {
+    init(transition: AnyNavigationTransition, baseDelegate: UINavigationControllerDelegate?, addlDelegate: UINavigationControllerDelegate? = nil) {
 		self.transition = transition
 		self.baseDelegate = baseDelegate
+        self.addlDelegate = addlDelegate
 	}
 
 	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
 		baseDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
+        addlDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
 	}
 
-	func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-		baseDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
-	}
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        baseDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
+        addlDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
+    }
+    
 
 	func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
 		if !transition.isDefault {

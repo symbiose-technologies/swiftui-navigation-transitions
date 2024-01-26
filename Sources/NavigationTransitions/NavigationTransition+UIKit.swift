@@ -135,14 +135,16 @@ extension UINavigationController {
 
 	public func setNavigationTransition(
 		_ transition: AnyNavigationTransition,
-		interactivity: AnyNavigationTransition.Interactivity = .default
+		interactivity: AnyNavigationTransition.Interactivity = .default,
+        addlDelegate: UINavigationControllerDelegate? = nil
 	) {
 		if defaultDelegate == nil {
 			defaultDelegate = delegate
 		}
 
 		if customDelegate == nil {
-			customDelegate = NavigationTransitionDelegate(transition: transition, baseDelegate: defaultDelegate)
+            customDelegate = NavigationTransitionDelegate(transition: transition, baseDelegate: defaultDelegate, addlDelegate: addlDelegate)
+            
 		} else {
 			customDelegate.transition = transition
 		}

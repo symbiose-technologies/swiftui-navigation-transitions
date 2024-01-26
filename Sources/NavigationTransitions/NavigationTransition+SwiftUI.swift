@@ -5,14 +5,15 @@ import SwiftUI
 extension View {
 	public func navigationTransition(
 		_ transition: AnyNavigationTransition,
-		interactivity: AnyNavigationTransition.Interactivity = .default
+		interactivity: AnyNavigationTransition.Interactivity = .default,
+        addlDelegate: UINavigationControllerDelegate? = nil
 	) -> some View {
 		self.introspect(
 			.navigationView(style: .stack),
 			on: .iOS(.v13...), .tvOS(.v13...), .visionOS(.v1...),
 			scope: [.receiver, .ancestor]
 		) { controller in
-			controller.setNavigationTransition(transition, interactivity: interactivity)
+			controller.setNavigationTransition(transition, interactivity: interactivity, addlDelegate: addlDelegate)
 		}
 	}
 }
