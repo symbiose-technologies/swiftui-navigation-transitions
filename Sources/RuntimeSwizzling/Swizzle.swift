@@ -1,7 +1,7 @@
 #if canImport(UIKit)
 import ObjectiveC
 
-public var swizzleLogs = false
+public var swizzleLogs = true
 
 public func swizzle(_ type: AnyObject.Type, _ original: Selector, _ swizzled: Selector) {
 	guard !swizzlingHistory.contains(type, original, swizzled) else {

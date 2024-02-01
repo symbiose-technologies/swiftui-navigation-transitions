@@ -136,7 +136,7 @@ extension UINavigationController {
 	public func setNavigationTransition(
 		_ transition: AnyNavigationTransition,
 		interactivity: AnyNavigationTransition.Interactivity = .default,
-        addlDelegate: UINavigationControllerDelegate? = nil
+        addlDelegate: SecondaryNavigationControllerDelegate? = nil
 	) {
 		if defaultDelegate == nil {
 			defaultDelegate = delegate
@@ -144,11 +144,14 @@ extension UINavigationController {
 
 		if customDelegate == nil {
             customDelegate = NavigationTransitionDelegate(transition: transition, baseDelegate: defaultDelegate, addlDelegate: addlDelegate)
+//            print("setNavigationTransition customDelegate == nil -> trackNavigationController  -- transition: \(transition) -- addlDelegate: \(String(describing: addlDelegate))")
+            addlDelegate?.trackNavigationController(self)
             
 		} else {
 			customDelegate.transition = transition
 		}
 
+        
 		swizzle(
 			UINavigationController.self,
 			#selector(UINavigationController.setViewControllers),
@@ -243,14 +246,16 @@ extension UINavigationController {
 
 extension UINavigationController {
 	@objc private func setViewControllers_animateIfNeeded(_ viewControllers: [UIViewController], animated: Bool) {
+        debugPrint("[UINavigationController] setViewControllers_animateIfNeeded -- viewControllers: \(viewControllers) -- animated: \(animated) hasCustomDelegate: \(customDelegate != nil)")
 		if let transitionDelegate = customDelegate {
-			setViewControllers_animateIfNeeded(viewControllers, animated: transitionDelegate.transition.animation != nil)
+			setViewControllers_animateIfNeeded(viewControllers, animated: transitionDelegate.transition.animation != nil && animated)
 		} else {
 			setViewControllers_animateIfNeeded(viewControllers, animated: animated)
 		}
 	}
 
 	@objc private func pushViewController_animateIfNeeded(_ viewController: UIViewController, animated: Bool) {
+//        debugPrint("[UINavigationController] pushViewController_animateIfNeeded -- viewController: \(viewController) -- animated: \(animated) hasCustomDelegate: \(customDelegate != nil)")
 		if let transitionDelegate = customDelegate {
 			pushViewController_animateIfNeeded(viewController, animated: transitionDelegate.transition.animation != nil)
 		} else {
@@ -259,6 +264,7 @@ extension UINavigationController {
 	}
 
 	@objc private func popViewController_animateIfNeeded(animated: Bool) -> UIViewController? {
+//        debugPrint("[UINavigationController] popViewController_animateIfNeeded -- animated: \(animated) hasCustomDelegate: \(customDelegate != nil)")
 		if let transitionDelegate = customDelegate {
 			return popViewController_animateIfNeeded(animated: transitionDelegate.transition.animation != nil)
 		} else {
@@ -267,6 +273,8 @@ extension UINavigationController {
 	}
 
 	@objc private func popToViewController_animateIfNeeded(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
+//        debugPrint("[UINavigationController] popToViewController_animateIfNeeded -- viewController: \(viewController) -- animated: \(animated) hasCustomDelegate: \(customDelegate != nil)")
+        
 		if let transitionDelegate = customDelegate {
 			return popToViewController_animateIfNeeded(viewController, animated: transitionDelegate.transition.animation != nil)
 		} else {
@@ -275,6 +283,8 @@ extension UINavigationController {
 	}
 
 	@objc private func popToRootViewController_animateIfNeeded(animated: Bool) -> UIViewController? {
+//        debugPrint("[UINavigationController] popToRootViewController_animateIfNeeded -- animated: \(animated) hasCustomDelegate: \(customDelegate != nil)")
+        
 		if let transitionDelegate = customDelegate {
 			return popToRootViewController_animateIfNeeded(animated: transitionDelegate.transition.animation != nil)
 		} else {
@@ -350,7 +360,6 @@ final class NavigationGestureRecognizerDelegate: NSObject, UIGestureRecognizerDe
         
         //if it is on the right edge of the screen, with a certain amount of padding, then skip the gesture
         
-        
         let location = touch.location(in: gestureRecognizer.view)
         let width = gestureRecognizer.view?.bounds.width ?? 0
         let max_XVal = width - (width * rightEdgeIgnoreRegion)
@@ -371,7 +380,6 @@ final class NavigationGestureRecognizerDelegate: NSObject, UIGestureRecognizerDe
             print("gesture BLOCKED!")
             return false
         }
-        
         
         let isNotOnRoot = navigationController.viewControllers.count > 1
         let noModalIsPresented = navigationController.presentedViewController == nil // TODO: check if this check is still needed after iOS 17 public release

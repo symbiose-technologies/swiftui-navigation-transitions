@@ -6,13 +6,18 @@
 @_spi(package) import NavigationTransition
 import UIKit
 
+public protocol SecondaryNavigationControllerDelegate: UINavigationControllerDelegate {
+    func trackNavigationController(_ navigationController: UINavigationController) -> Void
+    
+}
+
 final class NavigationTransitionDelegate: NSObject, UINavigationControllerDelegate {
 	var transition: AnyNavigationTransition
-    private weak var addlDelegate: UINavigationControllerDelegate?
+    private weak var addlDelegate: SecondaryNavigationControllerDelegate?
 	private weak var baseDelegate: UINavigationControllerDelegate?
 	var interactionController: UIPercentDrivenInteractiveTransition?
 
-    init(transition: AnyNavigationTransition, baseDelegate: UINavigationControllerDelegate?, addlDelegate: UINavigationControllerDelegate? = nil) {
+    init(transition: AnyNavigationTransition, baseDelegate: UINavigationControllerDelegate?, addlDelegate: SecondaryNavigationControllerDelegate? = nil) {
 		self.transition = transition
 		self.baseDelegate = baseDelegate
         self.addlDelegate = addlDelegate

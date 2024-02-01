@@ -6,7 +6,7 @@ extension View {
 	public func navigationTransition(
 		_ transition: AnyNavigationTransition,
 		interactivity: AnyNavigationTransition.Interactivity = .default,
-        addlDelegate: UINavigationControllerDelegate? = nil
+        addlDelegate: SecondaryNavigationControllerDelegate? = nil
 	) -> some View {
 		self.introspect(
 			.navigationView(style: .stack),
