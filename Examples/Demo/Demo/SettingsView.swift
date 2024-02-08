@@ -1,5 +1,7 @@
-import NavigationTransitions
 import SwiftUI
+
+#if os(iOS)
+import NavigationTransitions
 
 struct SettingsView: View {
 	@EnvironmentObject var appState: AppState
@@ -28,6 +30,7 @@ struct SettingsView: View {
 					picker("Interactivity", $appState.interactivity)
 				}
 			}
+            
 			#if !os(tvOS)
 			.navigationBarTitle("Settings", displayMode: .inline)
 			#endif
@@ -87,3 +90,4 @@ struct SettingsViewPreview: PreviewProvider {
 		SettingsView().environmentObject(AppState())
 	}
 }
+#endif

@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import class UIKit.UIView
 
 /// A composite transition that is the result of two or more transitions being applied.
@@ -28,3 +30,4 @@ extension Combined: MirrorableAtomicTransition where TransitionA: MirrorableAtom
 
 extension Combined: Equatable where TransitionA: Equatable, TransitionB: Equatable {}
 extension Combined: Hashable where TransitionA: Hashable, TransitionB: Hashable {}
+#endif

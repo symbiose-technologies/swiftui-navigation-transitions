@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 @_spi(package) import NavigationTransition
 import RuntimeAssociation
 import RuntimeSwizzling
@@ -133,18 +135,23 @@ extension UINavigationController {
 
 	public func setNavigationTransition(
 		_ transition: AnyNavigationTransition,
-		interactivity: AnyNavigationTransition.Interactivity = .default
+		interactivity: AnyNavigationTransition.Interactivity = .default,
+        addlDelegate: SecondaryNavigationControllerDelegate? = nil
 	) {
 		if defaultDelegate == nil {
 			defaultDelegate = delegate
 		}
 
 		if customDelegate == nil {
-			customDelegate = NavigationTransitionDelegate(transition: transition, baseDelegate: defaultDelegate)
+            customDelegate = NavigationTransitionDelegate(transition: transition, baseDelegate: defaultDelegate, addlDelegate: addlDelegate)
+//            print("setNavigationTransition customDelegate == nil -> trackNavigationController  -- transition: \(transition) -- addlDelegate: \(String(describing: addlDelegate))")
+            addlDelegate?.trackNavigationController(self)
+            
 		} else {
 			customDelegate.transition = transition
 		}
 
+        
 		swizzle(
 			UINavigationController.self,
 			#selector(UINavigationController.setViewControllers),
@@ -239,14 +246,16 @@ extension UINavigationController {
 
 extension UINavigationController {
 	@objc private func setViewControllers_animateIfNeeded(_ viewControllers: [UIViewController], animated: Bool) {
+        debugPrint("[UINavigationController] setViewControllers_animateIfNeeded -- viewControllers: \(viewControllers) -- animated: \(animated) hasCustomDelegate: \(customDelegate != nil)")
 		if let transitionDelegate = customDelegate {
-			setViewControllers_animateIfNeeded(viewControllers, animated: transitionDelegate.transition.animation != nil)
+			setViewControllers_animateIfNeeded(viewControllers, animated: transitionDelegate.transition.animation != nil && animated)
 		} else {
 			setViewControllers_animateIfNeeded(viewControllers, animated: animated)
 		}
 	}
 
 	@objc private func pushViewController_animateIfNeeded(_ viewController: UIViewController, animated: Bool) {
+//        debugPrint("[UINavigationController] pushViewController_animateIfNeeded -- viewController: \(viewController) -- animated: \(animated) hasCustomDelegate: \(customDelegate != nil)")
 		if let transitionDelegate = customDelegate {
 			pushViewController_animateIfNeeded(viewController, animated: transitionDelegate.transition.animation != nil)
 		} else {
@@ -255,6 +264,7 @@ extension UINavigationController {
 	}
 
 	@objc private func popViewController_animateIfNeeded(animated: Bool) -> UIViewController? {
+//        debugPrint("[UINavigationController] popViewController_animateIfNeeded -- animated: \(animated) hasCustomDelegate: \(customDelegate != nil)")
 		if let transitionDelegate = customDelegate {
 			return popViewController_animateIfNeeded(animated: transitionDelegate.transition.animation != nil)
 		} else {
@@ -263,6 +273,8 @@ extension UINavigationController {
 	}
 
 	@objc private func popToViewController_animateIfNeeded(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
+//        debugPrint("[UINavigationController] popToViewController_animateIfNeeded -- viewController: \(viewController) -- animated: \(animated) hasCustomDelegate: \(customDelegate != nil)")
+        
 		if let transitionDelegate = customDelegate {
 			return popToViewController_animateIfNeeded(viewController, animated: transitionDelegate.transition.animation != nil)
 		} else {
@@ -271,6 +283,8 @@ extension UINavigationController {
 	}
 
 	@objc private func popToRootViewController_animateIfNeeded(animated: Bool) -> UIViewController? {
+//        debugPrint("[UINavigationController] popToRootViewController_animateIfNeeded -- animated: \(animated) hasCustomDelegate: \(customDelegate != nil)")
+        
 		if let transitionDelegate = customDelegate {
 			return popToRootViewController_animateIfNeeded(animated: transitionDelegate.transition.animation != nil)
 		} else {
@@ -334,10 +348,66 @@ final class NavigationGestureRecognizerDelegate: NSObject, UIGestureRecognizerDe
 		self.navigationController = controller
 	}
 
-	// TODO: swizzle instead
-	func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-		let isNotOnRoot = navigationController.viewControllers.count > 1
-		let noModalIsPresented = navigationController.presentedViewController == nil // TODO: check if this check is still needed after iOS 17 public release
-		return isNotOnRoot && noModalIsPresented
-	}
+    
+    var gestureBlocked: Bool {
+        NavigationGestureGlobalState.shared.navigationGestureBlocked
+    }
+    
+    
+    let rightEdgeIgnoreRegion: CGFloat = 0.15 // 10% of the right edge should be ignored
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        //if it is on the right edge of the screen, with a certain amount of padding, then skip the gesture
+        
+        let location = touch.location(in: gestureRecognizer.view)
+        let width = gestureRecognizer.view?.bounds.width ?? 0
+        let max_XVal = width - (width * rightEdgeIgnoreRegion)
+//        print("location: \(location) max_XVal: \(max_XVal) gestureRecognizer.view.width: \(width)")
+        if location.x > max_XVal {
+            return false
+        }
+        
+        
+        return true
+    }
+    
+    
+    
+    // TODO: swizzle instead
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard !gestureBlocked else {
+            print("gesture BLOCKED!")
+            return false
+        }
+        
+        let isNotOnRoot = navigationController.viewControllers.count > 1
+        let noModalIsPresented = navigationController.presentedViewController == nil // TODO: check if this check is still needed after iOS 17 public release
+        return isNotOnRoot && noModalIsPresented
+    }
+    
+    
+    
+}
+
+
+#endif
+
+
+public final class NavigationGestureGlobalState {
+    
+    public static var shared: NavigationGestureGlobalState = NavigationGestureGlobalState()
+    
+    public var navigationGestureBlocked: Bool = false
+    
+    
+    public init() {
+        
+    }
+    
+    public func setNavigationGestureBlocked(_ blocked: Bool) {
+        print("setNavigationGestureBlocked: \(blocked)")
+        navigationGestureBlocked = blocked
+    }
+    
 }

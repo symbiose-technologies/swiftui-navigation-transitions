@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import class UIKit.UIView
 
 /// A transition that executes only on insertion.
@@ -61,3 +63,4 @@ extension OnRemoval: MirrorableAtomicTransition where Transition: MirrorableAtom
 
 extension OnRemoval: Equatable where Transition: Equatable {}
 extension OnRemoval: Hashable where Transition: Hashable {}
+#endif

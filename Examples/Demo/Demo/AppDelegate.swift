@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import SwiftUI
 
 @main
@@ -42,3 +44,35 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 		UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
 	}
 }
+#elseif os(macOS)
+
+//creat the AppDelegate for macOS
+//@main
+//class AppDelegate: NSObject, NSApplicationDelegate {
+//
+//
+//    func applicationWillFinishLaunching(_ notification: Notification) {
+//    }
+//    func applicationDidFinishLaunching(_ notification: Notification) {
+//    }
+//
+//
+//    func applicationDidChangeOcclusionState(_ notification: Notification) {
+//
+//    }
+//
+//    lazy var windows = NSWindow()
+//    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+//        if !flag {
+//            for window in sender.windows {
+//                window.makeKeyAndOrderFront(self)
+//            }
+//        }
+//        return true
+//    }
+//
+//}
+
+
+
+#endif

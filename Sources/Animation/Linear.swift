@@ -1,4 +1,6 @@
-extension Animation {
+#if canImport(UIKit)
+
+extension NavAnimation {
 	public static func linear(duration: Double) -> Self {
 		.init(duration: duration, curve: .linear)
 	}
@@ -7,3 +9,4 @@ extension Animation {
 		.linear(duration: defaultDuration)
 	}
 }
+#endif

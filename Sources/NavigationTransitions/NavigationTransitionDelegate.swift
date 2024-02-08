@@ -1,25 +1,38 @@
+#if canImport(UIKit)
+
+
 @_spi(package) import Animation
 @_spi(package) import Animator
 @_spi(package) import NavigationTransition
 import UIKit
 
+public protocol SecondaryNavigationControllerDelegate: UINavigationControllerDelegate {
+    func trackNavigationController(_ navigationController: UINavigationController) -> Void
+    
+}
+
 final class NavigationTransitionDelegate: NSObject, UINavigationControllerDelegate {
 	var transition: AnyNavigationTransition
+    private weak var addlDelegate: SecondaryNavigationControllerDelegate?
 	private weak var baseDelegate: UINavigationControllerDelegate?
 	var interactionController: UIPercentDrivenInteractiveTransition?
 
-	init(transition: AnyNavigationTransition, baseDelegate: UINavigationControllerDelegate?) {
+    init(transition: AnyNavigationTransition, baseDelegate: UINavigationControllerDelegate?, addlDelegate: SecondaryNavigationControllerDelegate? = nil) {
 		self.transition = transition
 		self.baseDelegate = baseDelegate
+        self.addlDelegate = addlDelegate
 	}
 
 	func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
 		baseDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
+        addlDelegate?.navigationController?(navigationController, willShow: viewController, animated: animated)
 	}
 
-	func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-		baseDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
-	}
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        baseDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
+        addlDelegate?.navigationController?(navigationController, didShow: viewController, animated: animated)
+    }
+    
 
 	func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
 		if !transition.isDefault {
@@ -48,10 +61,10 @@ final class NavigationTransitionDelegate: NSObject, UINavigationControllerDelega
 
 final class NavigationTransitionAnimatorProvider: NSObject, UIViewControllerAnimatedTransitioning {
 	let transition: AnyNavigationTransition
-	let animation: Animation
+	let animation: NavAnimation
 	let operation: NavigationTransitionOperation
 
-	init(transition: AnyNavigationTransition, animation: Animation, operation: NavigationTransitionOperation) {
+	init(transition: AnyNavigationTransition, animation: NavAnimation, operation: NavigationTransitionOperation) {
 		self.transition = transition
 		self.animation = animation
 		self.operation = operation
@@ -126,13 +139,33 @@ final class NavigationTransitionAnimatorProvider: NSObject, UIViewControllerAnim
 			toUIView.isUserInteractionEnabled = true
 
 			// iOS 16 workaround to nudge views into becoming responsive after transition
-			if transitionContext.transitionWasCancelled {
-				fromUIView.removeFromSuperview()
-				container.addSubview(fromUIView)
-			} else {
-				toUIView.removeFromSuperview()
-				container.addSubview(toUIView)
-			}
+            
+            /*
+             TODO:
+             try to fixswiftuihittesting like so:
+             
+             //from transmission uiviewcontroller extension
+             
+             func fixSwiftUIHitTesting() {
+                 if let view = viewIfLoaded {
+                     // This fixes SwiftUI's gesture handling that can get messed up when applying
+                     // transforms and/or frame changes during an interactive presentation. This resets
+                     // SwiftUI's geometry in a clean way, fixing hit testing.
+                     let frame = view.frame
+                     view.frame = .zero
+                     view.frame = frame
+                 }
+             }
+             
+             */
+            
+//			if transitionContext.transitionWasCancelled {
+//				fromUIView.removeFromSuperview()
+//				container.addSubview(fromUIView)
+//			} else {
+//				toUIView.removeFromSuperview()
+//				container.addSubview(toUIView)
+//			}
 		}
 
 		return animator
@@ -160,3 +193,4 @@ final class NavigationTransitionAnimatorProvider: NSObject, UIViewControllerAnim
 		return (fromView, toView)
 	}
 }
+#endif

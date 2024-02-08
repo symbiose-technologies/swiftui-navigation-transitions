@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import UIKit
 
 extension UIView {
@@ -9,3 +11,5 @@ extension UIView {
 final class UnimplementedUIView: UIView {
 	// TODO: unimplement some stuff...
 }
+
+#endif

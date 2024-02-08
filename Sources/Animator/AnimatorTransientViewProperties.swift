@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import UIKit
 
 /// Defines the allowed mutable properties in a transient view throughout each stage of the transition.
@@ -36,3 +38,4 @@ extension AnimatorTransientViewProperties {
 		$zPosition.assign(to: uiView, \.layer.zPosition, force: force)
 	}
 }
+#endif

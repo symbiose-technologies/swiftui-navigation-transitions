@@ -1,3 +1,5 @@
+#if canImport(UIKit)
+
 import Animator
 import UIKit
 
@@ -22,3 +24,4 @@ public protocol PrimitiveNavigationTransition {
 	///   - Context: The raw `UIViewControllerContextTransitioning` instance of the transition coordinator.
 	func transition(with animator: Animator, for operation: TransitionOperation, in context: Context)
 }
+#endif
