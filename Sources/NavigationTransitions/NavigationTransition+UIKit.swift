@@ -363,7 +363,7 @@ final class NavigationGestureRecognizerDelegate: NSObject, UIGestureRecognizerDe
         let location = touch.location(in: gestureRecognizer.view)
         let width = gestureRecognizer.view?.bounds.width ?? 0
         let max_XVal = width - (width * rightEdgeIgnoreRegion)
-        print("location: \(location) max_XVal: \(max_XVal) gestureRecognizer.view.width: \(width)")
+//        print("location: \(location) max_XVal: \(max_XVal) gestureRecognizer.view.width: \(width)")
         if location.x > max_XVal {
             return false
         }
